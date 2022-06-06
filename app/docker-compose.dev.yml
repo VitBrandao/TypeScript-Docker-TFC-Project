@@ -2,13 +2,14 @@ version: '3.9'
 services:
   frontend:
     build: ./frontend
-    container_name: app_frontend
-    ports:
-      - 3000:3000
+    platform: linux/x86_64
     # ...
     depends_on:
       backend:
         condition: service_healthy
+    ports:
+      - 3000:3000
+    container_name: app_frontend
     # Os `healthcheck` devem garantir que a aplicação
     # está operacional, antes de liberar o container
     healthcheck:
@@ -17,13 +18,15 @@ services:
       retries: 5
   backend:
     build: ./backend
-    command: npm run dev
-    volumes:
-      - ./backend/src:/app/src/
-    container_name: app_backend
+    platform: linux/x86_64
     ports:
       - 3001:3001
+    container_name: app_backend
+    restart: 'always'
     # ...
+    command: npm run dev
+    volumes:
+      - './backend/src:/app/src'
     depends_on:
       db:
         condition: service_healthy
@@ -43,6 +46,7 @@ services:
   db:
     image: mysql:8.0.21
     container_name: db
+    platform: linux/x86_64
     ports:
       - 3002:3306
     environment:
