@@ -8,6 +8,12 @@ class TeamsController {
     const allTeams = await this.teamsServices.getAll();
     return res.status(200).json(allTeams);
   };
+
+  public getById = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const teamById = await this.teamsServices.getById(id);
+    return res.status(200).json(teamById);
+  };
 }
 
 export default TeamsController;
