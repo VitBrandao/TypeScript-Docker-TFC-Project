@@ -18,7 +18,7 @@ class LoginController {
     if (!authorization) throw new Error('Token not found');
     try {
       const verify = await this.loginServices.validate(authorization);
-      // const { role } = verify;
+
       return res.status(200).json(verify);
     } catch (error) {
       console.log(error);
