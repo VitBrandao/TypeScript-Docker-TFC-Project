@@ -3,6 +3,7 @@ import readJWT from '../auth/readJWT';
 import Match from '../database/models/match';
 import Team from '../database/models/team';
 import IMatch from '../interfaces/IMatch';
+import IMatchGoals from '../interfaces/IMatchGoals';
 
 class MatchesServices {
   public getAll = async () => {
@@ -55,6 +56,18 @@ class MatchesServices {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  public update = async (body: IMatchGoals, id: string) => {
+    const { homeTeamGoals, awayTeamGoals } = body;
+
+    await Match.update(
+      // eslint-disable-next-line object-shorthand
+      { homeTeamGoals: homeTeamGoals, awayTeamGoals: awayTeamGoals },
+      { where: { id } },
+    );
+
+    return { message: 'Match goals successfully updated!' };
   };
 }
 
