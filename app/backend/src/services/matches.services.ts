@@ -35,6 +35,10 @@ class MatchesServices {
 
     const { homeTeam, homeTeamGoals, awayTeam, awayTeamGoals, inProgress } = body;
 
+    const findHomeTeam = await Match.findByPk(homeTeam);
+    const findAwayTeam = await Match.findByPk(awayTeam);
+    if (!findHomeTeam || !findAwayTeam) return 'Not Valid Id';
+
     const newMatch = Match
       .create({ homeTeam, homeTeamGoals, awayTeam, awayTeamGoals, inProgress });
 
