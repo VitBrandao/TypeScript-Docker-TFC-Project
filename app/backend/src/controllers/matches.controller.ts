@@ -26,6 +26,13 @@ class MatchesController {
     const createMatch = await this.matchesServices.create(req.body, authorization);
     return res.status(201).json(createMatch);
   };
+
+  public finish = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const finishMatch = await this.matchesServices.finish(id);
+
+    return res.status(200).json(finishMatch);
+  };
 }
 
 export default MatchesController;
