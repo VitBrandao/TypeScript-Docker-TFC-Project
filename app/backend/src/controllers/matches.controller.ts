@@ -18,6 +18,14 @@ class MatchesController {
     const matches = await this.matchesServices.getByProgress(inProgress);
     return res.status(200).json(matches);
   };
+
+  public create = async (req: Request, res: Response) => {
+    const { authorization } = req.headers;
+    if (!authorization) throw new Error('Token not found');
+
+    const createMatch = await this.matchesServices.create(req.body, authorization);
+    return res.status(201).json(createMatch);
+  };
 }
 
 export default MatchesController;
