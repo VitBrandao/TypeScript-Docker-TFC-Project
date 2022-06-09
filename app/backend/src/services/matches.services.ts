@@ -40,6 +40,18 @@ class MatchesServices {
 
     return newMatch;
   };
+
+  public finish = async (id: string) => {
+    try {
+      const findMatch = await Match.findByPk(id);
+      if (!findMatch) throw new Error('Match not found!');
+
+      await Match.update({ inProgress: false }, { where: { id } });
+      return { message: 'Finished' };
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
 
 export default MatchesServices;
