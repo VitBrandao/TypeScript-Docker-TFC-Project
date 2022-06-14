@@ -1,10 +1,10 @@
 class TeamData {
   id: number;
-  teamName: string;
+  name: string;
 
   constructor(id: number, teamName: string) {
     this.id = id;
-    this.teamName = teamName;
+    this.name = teamName;
   }
 
   // Todos os campos do leaderboard iniciam zerados
@@ -24,7 +24,7 @@ class TeamData {
 
     // %
     // eslint-disable-next-line no-mixed-operators
-    this.efficiency = this.totalPoints / (this.totalGames * 3) * 100;
+    this.efficiency = Number(((this.totalPoints / (this.totalGames * 3) * 100).toFixed(2)));
   };
 
   public addNewGame = (goalsPro: number, goalsOwn: number) => {
