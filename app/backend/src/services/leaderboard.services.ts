@@ -50,6 +50,22 @@ class LeaderboardServices {
 
     return this.classification.map((teamData) => OrderTeamFields(teamData));
   };
+
+  public homeLeaderboard = async () => {
+    const allFinishedMatches = await this.finishedMatches();
+
+    allFinishedMatches.forEach((match) => {
+      const homeTeam = this.classification.find(
+        (team) => team.id === match.homeTeam,
+      ) as TeamData;
+
+      homeTeam.addNewGame(match.homeTeamGoals, match.awayTeamGoals);
+    });
+
+    this.orderTableByPoints();
+
+    return this.classification.map((teamData) => OrderTeamFields(teamData));
+  };
 }
 
 export default LeaderboardServices;
