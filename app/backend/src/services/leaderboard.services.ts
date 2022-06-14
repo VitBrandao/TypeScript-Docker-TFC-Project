@@ -13,9 +13,6 @@ class LeaderboardServices {
   constructor() {
     this.matchesServices = new MatchesServices();
     this.teamsServices = new TeamsServices();
-
-    // Executa função inicial de montagem do array já no constructor
-    this.firstLeaderboardData();
   }
 
   public finishedMatches = async () => this.matchesServices.getByProgress('false');
@@ -30,6 +27,7 @@ class LeaderboardServices {
   };
 
   public leaderboard = async () => {
+    await this.firstLeaderboardData();
     const allFinishedMatches = await this.finishedMatches();
 
     // Percorre partidas finalizadas, encontra time por id e adiciona nova partida
@@ -38,11 +36,12 @@ class LeaderboardServices {
         (team) => team.id === match.homeTeam,
       ) as TeamData;
 
+      ifHomeTeam.addNewGame(match.homeTeamGoals, match.awayTeamGoals);
+
       const ifAwayTeam = this.classification.find(
         (team) => team.id === match.awayTeam,
       ) as TeamData;
 
-      ifHomeTeam.addNewGame(match.homeTeamGoals, match.awayTeamGoals);
       ifAwayTeam.addNewGame(match.awayTeamGoals, match.homeTeamGoals);
     });
 
@@ -52,6 +51,7 @@ class LeaderboardServices {
   };
 
   public homeLeaderboard = async () => {
+    await this.firstLeaderboardData();
     const allFinishedMatches = await this.finishedMatches();
 
     allFinishedMatches.forEach((match) => {
@@ -68,6 +68,7 @@ class LeaderboardServices {
   };
 
   public awayLeaderboard = async () => {
+    await this.firstLeaderboardData();
     const allFinishedMatches = await this.finishedMatches();
 
     allFinishedMatches.forEach((match) => {
