@@ -18,15 +18,6 @@ class TeamData {
   goalsBalance = 0;
   efficiency = 0;
 
-  public calcPointsAndEfficiency = () => {
-    // Pontos
-    this.totalPoints = this.totalDraws + (this.totalVictories * 3);
-
-    // %
-    // eslint-disable-next-line no-mixed-operators
-    this.efficiency = Number(((this.totalPoints / (this.totalGames * 3) * 100).toFixed(2)));
-  };
-
   public addNewGame = (goalsPro: number, goalsOwn: number) => {
     // Gols pró, gols contra e saldo de gols
     this.goalsFavor += goalsPro;
@@ -41,8 +32,12 @@ class TeamData {
     if (goalsPro < goalsOwn) this.totalLosses += 1;
     if (goalsPro === goalsOwn) this.totalDraws += 1;
 
-    // Lint - pontos e % de aproveitamento calculados em nova função
-    this.calcPointsAndEfficiency();
+    // Pontos
+    this.totalPoints = this.totalDraws + (this.totalVictories * 3);
+
+    // %
+    // eslint-disable-next-line no-mixed-operators
+    this.efficiency = Number(((this.totalPoints / (this.totalGames * 3) * 100).toFixed(2)));
   };
 }
 
