@@ -25,7 +25,7 @@ class LeaderboardServices {
     this.classification = allTeams.map((team) => new TeamData(team.id, team.teamName));
   };
 
-  public orderTableByPoints = async () => {
+  public orderTableByPoints = () => {
     this.classification.sort((teamA, teamB) => OrderTable(teamA, teamB));
   };
 
@@ -38,12 +38,11 @@ class LeaderboardServices {
         (team) => team.id === match.homeTeam,
       ) as TeamData;
 
-      ifHomeTeam.addNewGame(match.homeTeamGoals, match.awayTeamGoals);
-
       const ifAwayTeam = this.classification.find(
         (team) => team.id === match.awayTeam,
       ) as TeamData;
 
+      ifHomeTeam.addNewGame(match.homeTeamGoals, match.awayTeamGoals);
       ifAwayTeam.addNewGame(match.awayTeamGoals, match.homeTeamGoals);
     });
 
