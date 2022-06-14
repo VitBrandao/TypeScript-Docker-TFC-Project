@@ -1,3 +1,4 @@
+import OrderTeamFields from '../helpers/OrderTeamFiels';
 import TeamData from '../helpers/TeamData';
 import MatchesServices from './matches.services';
 import TeamsServices from './teams.services';
@@ -41,7 +42,7 @@ class LeaderboardServices {
       ifAwayTeam.addNewGame(match.awayTeamGoals, match.homeTeamGoals);
     });
 
-    return this.classification;
+    return this.classification.map((teamData) => OrderTeamFields(teamData));
   };
 }
 
