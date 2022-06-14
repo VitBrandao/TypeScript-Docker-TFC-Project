@@ -22,7 +22,7 @@ class TeamData {
     // Gols pró, gols contra e saldo de gols
     this.goalsFavor += goalsPro;
     this.goalsOwn += goalsOwn;
-    this.goalsBalance = this.goalsFavor - this.goalsBalance;
+    this.goalsBalance = this.goalsFavor - this.goalsOwn;
 
     // Partidas jogadas
     this.totalGames += 1;
