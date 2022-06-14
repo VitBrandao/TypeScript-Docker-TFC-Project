@@ -36,8 +36,8 @@ class TeamData {
     this.totalPoints = this.totalDraws + (this.totalVictories * 3);
 
     // %
-    // eslint-disable-next-line no-mixed-operators
-    this.efficiency = Number(((this.totalPoints / (this.totalGames * 3) * 100).toFixed(2)));
+    const maxPoints = this.totalGames * 3;
+    this.efficiency = Number((((this.totalPoints / maxPoints) * 100).toFixed(2)));
   };
 }
 
