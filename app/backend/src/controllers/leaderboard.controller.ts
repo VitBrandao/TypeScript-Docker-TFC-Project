@@ -8,6 +8,11 @@ class LeaderboardController {
     const table = await this.leaderboardServices.leaderboard();
     return res.status(200).json(table);
   };
+
+  public homeLeaderboard = async (_req: Request, res: Response) => {
+    const table = await this.leaderboardServices.homeLeaderboard();
+    return res.status(200).json(table);
+  };
 }
 
 export default LeaderboardController;
