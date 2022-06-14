@@ -1,3 +1,4 @@
+import OrderTable from '../helpers/OrderTable';
 import OrderTeamFields from '../helpers/OrderTeamFiels';
 import TeamData from '../helpers/TeamData';
 import MatchesServices from './matches.services';
@@ -17,11 +18,15 @@ class LeaderboardServices {
     this.firstLeaderboardData();
   }
 
-  private finishedMatches = async () => this.matchesServices.getByProgress('false');
+  public finishedMatches = async () => this.matchesServices.getByProgress('false');
 
   public firstLeaderboardData = async () => {
     const allTeams = await this.teamsServices.getAll();
     this.classification = allTeams.map((team) => new TeamData(team.id, team.teamName));
+  };
+
+  public orderTableByPoints = async () => {
+    this.classification.sort((teamA, teamB) => OrderTable(teamA, teamB));
   };
 
   public leaderboard = async () => {
@@ -41,6 +46,8 @@ class LeaderboardServices {
 
       ifAwayTeam.addNewGame(match.awayTeamGoals, match.homeTeamGoals);
     });
+
+    this.orderTableByPoints();
 
     return this.classification.map((teamData) => OrderTeamFields(teamData));
   };
