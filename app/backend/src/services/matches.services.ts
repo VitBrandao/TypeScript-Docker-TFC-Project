@@ -59,11 +59,10 @@ class MatchesServices {
   };
 
   public update = async (body: IMatchGoals, id: string) => {
-    const { homeTeamGoals, awayTeamGoals } = body;
+    const { homeTeamGoals: homeGoals, awayTeamGoals: awayGoals } = body;
 
     await Match.update(
-      // eslint-disable-next-line object-shorthand
-      { homeTeamGoals: homeTeamGoals, awayTeamGoals: awayTeamGoals },
+      { homeTeamGoals: homeGoals, awayTeamGoals: awayGoals },
       { where: { id } },
     );
 
