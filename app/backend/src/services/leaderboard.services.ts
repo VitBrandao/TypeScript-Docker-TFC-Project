@@ -36,12 +36,11 @@ class LeaderboardServices {
         (team) => team.id === match.homeTeam,
       ) as TeamData;
 
-      ifHomeTeam.addNewGame(match.homeTeamGoals, match.awayTeamGoals);
-
       const ifAwayTeam = this.classification.find(
         (team) => team.id === match.awayTeam,
       ) as TeamData;
 
+      ifHomeTeam.addNewGame(match.homeTeamGoals, match.awayTeamGoals);
       ifAwayTeam.addNewGame(match.awayTeamGoals, match.homeTeamGoals);
     });
 
